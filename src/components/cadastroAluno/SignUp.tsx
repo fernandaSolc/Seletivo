@@ -108,10 +108,6 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
   const [guardianEmailErrorMessage, setGuardianEmailErrorMessage] = React.useState('');
   const [showGuardianEmail, setShowGuardianEmail] = React.useState(false);
 
-  const [otp, setOtp] = React.useState(""); // Armazena o código OTP
-  const [otpSent, setOtpSent] = React.useState(false); // Indica se o OTP foi enviado
-  const [otpError, setOtpError] = React.useState(""); // Mensagem de erro do OTP
-
   const navigate = useNavigate();
 
   const handleDobChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -215,43 +211,6 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     }
   };
 
-  // Função para enviar OTP
-  const sendOtp = async () => {
-    try {
-      const response = await axios.post("http://messager.mychat.help/send-otp/", {
-        phone_number: valoresFormulario.telefone,
-      });
-
-      if (response.status === 200) {
-        setOtpSent(true);
-        alert("Código enviado para seu número!");
-      }
-    } catch (error) {
-      console.error("Erro ao enviar OTP:", error);
-      alert("Erro ao enviar código. Verifique o número e tente novamente.");
-    }
-  };
-
-  // Função para validar OTP
-  const validateOtp = async () => {
-    try {
-      const response = await axios.post("http://messager.mychat.help/validate-otp/", {
-        phone_number: valoresFormulario.telefone,
-        otp: otp,
-      });
-
-      if (response.status === 200) {
-        alert("Código validado com sucesso!");
-        navigate("/next-page"); // Redireciona após validação
-      } else {
-        setOtpError("Código inválido. Tente novamente.");
-      }
-    } catch (error) {
-      console.error("Erro ao validar OTP:", error);
-      setOtpError("Erro ao validar. Tente novamente.");
-    }
-  };
-
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -352,25 +311,6 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                   color={phoneError ? 'error' : 'primary'}
                   size="small"
                 />
-                <Button variant="contained" onClick={sendOtp} sx={{ mt: 2 }}>
-                  Enviar Código
-                </Button>
-                {otpSent && (
-                  <>
-                    <TextField
-                      label="Código OTP"
-                      fullWidth
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      sx={{ mt: 2 }}
-                      error={!!otpError}
-                      helperText={otpError}
-                    />
-                    <Button variant="contained" onClick={validateOtp} sx={{ mt: 2 }}>
-                      Validar Código
-                    </Button>
-                  </>
-                )}
               </FormControl>
               <FormControl sx={{ flex: 1 }}>
                 <FormLabel htmlFor="dob">Data de nascimento*</FormLabel>

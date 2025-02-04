@@ -103,7 +103,7 @@ export default function VerifyNumber(props: { disableCustomTheme?: boolean }) {
     event.preventDefault();
     const fullToken = token.join("");
     if (fullToken.length === 6) {
-      navigate("/login");
+      navigate("/teste");
     }
   };
 
@@ -118,7 +118,7 @@ export default function VerifyNumber(props: { disableCustomTheme?: boolean }) {
           <SitemarkIcon />
           <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <FormControl sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <FormLabel>Token de verificação</FormLabel>
+              <FormLabel>Telefone</FormLabel>
               <Stack direction="row" spacing={1}>
                 {token.map((digit, index) => (
                   <TextField

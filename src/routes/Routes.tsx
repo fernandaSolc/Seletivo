@@ -1,0 +1,63 @@
+import React from 'react';
+import { Routes, Route } from 'react-router';
+import SignUp from '../components/cadastroAluno/SignUp';
+import Login from '../components/LoginAluno/Login';
+import VerifyNumber from '../components/VerifyNumber/VerifyNumber';
+import VerifyEmail from '../components/VerifyEmail/VerifyEmail';
+import AuthLayout from '../layout/AuthLayout';
+import MainLayout from '../layout/MainLayout';
+import PrivateRoute from '../components/PrivateRoute';
+
+const AppRoutes: React.FC = () => {
+  return (
+    <Routes>
+      <Route
+        path="/login"
+        element={
+          <PrivateRoute>
+          <AuthLayout>
+            <Login />
+          </AuthLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PrivateRoute>
+          <AuthLayout>
+            <SignUp />
+          </AuthLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/verify-number"
+        element={
+          
+          <AuthLayout>
+            <VerifyNumber />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="/verify-email"
+        element={
+          <AuthLayout>
+            <VerifyEmail />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <MainLayout>
+            <div>pipipipopopo</div>
+          </MainLayout>
+        }
+      />
+    </Routes>
+  );
+};
+
+export default AppRoutes;

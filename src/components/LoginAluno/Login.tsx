@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -11,9 +10,11 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AppTheme from '../cadastroAluno/shared-theme/AppTheme';
-import ColorModeSelect from '../cadastroAluno/shared-theme/ColorModeSelect';
+import AuthLayout from '../../layout/AuthLayout';
 import { SitemarkIcon } from '../cadastroAluno/CustomIcons';
+import ColorModeSelect from '../ColorModeSelect';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/authSlice';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -88,7 +89,7 @@ const validateDOB = (dob: string) => {
   return date < today;
 };
 
-export default function Login(props: { disableCustomTheme?: boolean }) {
+export default function Login() {
   const [cpf, setCpf] = React.useState('');
   const [dob, setDob] = React.useState('');
   const [cpfError, setCpfError] = React.useState(false);
@@ -96,6 +97,7 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
   const [dobError, setDobError] = React.useState(false);
   const [dobErrorMessage, setDobErrorMessage] = React.useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -123,17 +125,17 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
       try {
         const response = await axios.post('/auth/login', { cpf, dob });
         console.log('Login bem-sucedido:', response.data);
+        dispatch(login({ user: response.data.user, access: response.data.access, refresh: response.data.refresh }));
         navigate('/confirmar-contato'); // Na verdade deveria ser '/status-inscricao'
       } catch (error) {
         console.error('Erro no login:', error);
-        // Exibir mensagem de erro para o usuário
         alert('CPF ou Data de Nascimento inválidos. Tente novamente.');
       }
     }
   };
 
   return (
-    <AppTheme {...props}>
+    <AuthLayout>
       <CssBaseline enableColorScheme />
       <Box sx={{ position: 'fixed', top: '1rem', right: '1rem' }}>
         <ColorModeSelect />
@@ -147,7 +149,6 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
             sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}
           >
             <FormControl>
-              <FormLabel htmlFor="cpf">CPF</FormLabel>
               <TextField
                 required
                 fullWidth
@@ -165,7 +166,6 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="dob">Data de nascimento</FormLabel>
               <TextField
                 required
                 fullWidth
@@ -197,6 +197,6 @@ export default function Login(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </LoginContainer>
-    </AppTheme>
+    </AuthLayout>
   );
 }

@@ -14,12 +14,3 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-body {
-  background-image: url('./assets/padrao.png'), url('./assets/padrao.png');
-  background-repeat: no-repeat, no-repeat;
-  background-position: top-left, top-right;
-  background-position: 10%, 90%;
-  background-size: auto, auto;
-  transform: none, scaleY(-1);
-}

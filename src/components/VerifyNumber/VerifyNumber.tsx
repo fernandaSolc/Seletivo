@@ -2,8 +2,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
@@ -103,7 +103,7 @@ export default function VerifyNumber(props: { disableCustomTheme?: boolean }) {
     event.preventDefault();
     const fullToken = token.join("");
     if (fullToken.length === 6) {
-      navigate("/teste");
+      navigate("/");
     }
   };
 

@@ -14,21 +14,17 @@ const AppRoutes: React.FC = () => {
       <Route
         path="/login"
         element={
-          <PrivateRoute>
           <AuthLayout>
             <Login />
           </AuthLayout>
-          </PrivateRoute>
         }
       />
       <Route
         path="/signup"
         element={
-          <PrivateRoute>
           <AuthLayout>
             <SignUp />
           </AuthLayout>
-          </PrivateRoute>
         }
       />
       <Route

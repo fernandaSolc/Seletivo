@@ -1,19 +1,36 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { createContext, useMemo, useState, ReactNode } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import getTheme from '../../../styles/theme';
 
-const theme = createTheme({
-  palette: {
-    mode: 'light', // Change to 'dark' for dark mode
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-});
-
-import { ReactNode } from 'react';
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export default function AppTheme({ children }: { children: ReactNode }) {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  const [mode, setMode] = useState<'light' | 'dark'>(
+    (localStorage.getItem('theme') as 'light' | 'dark') || 'light'
+  );
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => {
+          const newMode = prevMode === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', newMode);
+          return newMode;
+        });
+      },
+    }),
+    []
+  );
+
+  const theme = useMemo(() => getTheme(mode), [mode]);
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
 }

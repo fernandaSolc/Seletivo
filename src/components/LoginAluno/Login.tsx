@@ -12,9 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthLayout from '../../layout/AuthLayout';
 import { SitemarkIcon } from '../cadastroAluno/CustomIcons';
-import ColorModeSelect from '../ColorModeSelect';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/authSlice';
+import { login } from '../../store/authSlice'
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -27,7 +26,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   margin: 'auto',
   boxShadow: '0px 4px 31.1px 5px rgba(0, 0, 0, 0.2)',
   borderRadius: '15px',
-  backgroundColor: '#F4F4F4',
+  backgroundColor: theme.palette.background.default,
   overflowY: 'auto',
   scrollbarWidth: 'thin',
   '&::-webkit-scrollbar': {
@@ -137,9 +136,6 @@ export default function Login() {
   return (
     <AuthLayout>
       <CssBaseline enableColorScheme />
-      <Box sx={{ position: 'fixed', top: '1rem', right: '1rem' }}>
-        <ColorModeSelect />
-      </Box>
       <LoginContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
           <SitemarkIcon />

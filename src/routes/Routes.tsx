@@ -8,6 +8,7 @@ import SucessMessage from '../components/SuccessMessage/SuccessMessage'
 import AuthLayout from '../layout/AuthLayout';
 import MainLayout from '../layout/MainLayout';
 import PrivateRoute from '../components/PrivateRoute';
+import Questionnaire from '../components/Form/Questionnaire'
 
 const AppRoutes: React.FC = () => {
   return (
@@ -38,6 +39,14 @@ const AppRoutes: React.FC = () => {
         }
       />
       <Route
+        path="/verify-email"
+        element={
+          <AuthLayout>
+            <VerifyEmail />
+          </AuthLayout>
+        }
+      />
+      <Route
         path="/sucess"
         element={
           
@@ -47,10 +56,11 @@ const AppRoutes: React.FC = () => {
         }
       />
       <Route
-        path="/verify-email"
+        path="/questionnaire"
         element={
+          
           <AuthLayout>
-            <VerifyEmail />
+            <Questionnaire />
           </AuthLayout>
         }
       />

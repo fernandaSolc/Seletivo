@@ -12,6 +12,7 @@ import {
   ListItemText,
   Typography
 } from '@mui/material';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   themeMode: "light" | "dark";
@@ -20,6 +21,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ themeMode, toggleTheme }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
   const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -54,8 +56,7 @@ const Header: React.FC<HeaderProps> = ({ themeMode, toggleTheme }) => {
           }}
         >
           <MenuItem onClick={handleMenuClose}>Conta</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Configuração</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Sair</MenuItem>
+          <MenuItem onClick={() => navigate('/login')}>Sair</MenuItem>
           <MenuItem
             onClick={() => {
               toggleTheme();

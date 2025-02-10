@@ -58,7 +58,7 @@ export default function VerifyEmail() {
     event.preventDefault();
     const fullOtp = emailOtp.join("");
     if (fullOtp.length === 6) {
-      navigate("/verify-number");
+      navigate("/success");
     } else {
       alert("Por favor, preencha os 6 dígitos do código.");
     }

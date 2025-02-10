@@ -4,6 +4,7 @@ import SignUp from '../components/cadastroAluno/SignUp';
 import Login from '../components/LoginAluno/Login';
 import VerifyNumber from '../components/VerifyNumber/VerifyNumber';
 import VerifyEmail from '../components/VerifyEmail/VerifyEmail';
+import SucessMessage from '../components/SuccessMessage/SuccessMessage'
 import AuthLayout from '../layout/AuthLayout';
 import MainLayout from '../layout/MainLayout';
 import PrivateRoute from '../components/PrivateRoute';
@@ -33,6 +34,15 @@ const AppRoutes: React.FC = () => {
           
           <AuthLayout>
             <VerifyNumber />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="/sucess"
+        element={
+          
+          <AuthLayout>
+            <SucessMessage />
           </AuthLayout>
         }
       />

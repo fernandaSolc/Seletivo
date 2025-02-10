@@ -88,7 +88,6 @@ export default function VerifyNumber() {
     if (fullToken.length === 6) {
       const isValid = await validateOtp(fullToken);
       if (isValid) {
-        // Se validado com sucesso, navega para a próxima etapa
         navigate("/verify-email");
       }
     } else {

@@ -9,6 +9,9 @@ import AuthLayout from '../layout/AuthLayout';
 import MainLayout from '../layout/MainLayout';
 import PrivateRoute from '../components/PrivateRoute';
 import Questionnaire from '../components/Form/Questionnaire'
+import ProcessosSeletivosCard from '../components/ProcessosSeletivosCard/ProcessosSeletivosCard';
+import EnemUploadScreen from '../components/EnemUploadScreen/EnemUploadScreen';
+import MeritScreen from '../components/Merito/MeritScreen';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -65,6 +68,29 @@ const AppRoutes: React.FC = () => {
         }
       />
       <Route
+        path="/processos-seletivos"
+        element={
+          <MainLayout>
+            <ProcessosSeletivosCard />
+          </MainLayout>
+        }/>
+        <Route
+        path="/enem-upload"
+        element={
+          <MainLayout>
+            <EnemUploadScreen />
+          </MainLayout>
+        }/>
+
+        <Route
+        path="/merit"
+        element={
+          <MainLayout>
+            <MeritScreen />
+          </MainLayout>
+        }/>
+
+       <Route
         path="*"
         element={
           <MainLayout>

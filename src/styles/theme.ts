@@ -9,7 +9,7 @@ export const getTheme = (mode: PaletteMode) =>
       },
       background: {
         default: mode === "dark" ? "#121212" : "#FFFFFF", // Background principal
-        paper: mode === "dark" ? "#1E1E1E" : "#F4F4F4", // Background secundário
+        paper: mode === "dark" ? "#262626" : "#F4F4F4", // Background secundário
       },
       text: {
         primary: mode === "dark" ? "#FFFFFF" : "#000000", // Texto principal

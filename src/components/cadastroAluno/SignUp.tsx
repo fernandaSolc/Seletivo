@@ -36,7 +36,7 @@ export default function SignUpTest() {
     nomeSocial: "",
     cpf: "",
     email: "",
-    telefone: "+55", // valor inicial com +55
+    telefone: "+55",
     dataNascimento: "",
     cidade: "",
     emailResponsavel: "",

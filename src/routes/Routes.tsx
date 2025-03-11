@@ -93,9 +93,9 @@ const AppRoutes: React.FC = () => {
        <Route
         path="*"
         element={
-          <MainLayout>
-            <div>pipipipopopo</div>
-          </MainLayout>
+          <AuthLayout>
+            <Login />
+          </AuthLayout>
         }
       />
     </Routes>

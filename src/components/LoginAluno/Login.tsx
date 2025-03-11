@@ -29,19 +29,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   overflowY: 'auto',
   scrollbarWidth: 'thin',
-  '&::-webkit-scrollbar': {
-    width: '8px',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    borderRadius: '10px',
-  },
-  '&::-webkit-scrollbar-thumb:hover': {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-  },
-  '&::-webkit-scrollbar-track': {
-    backgroundColor: '#F4F4F4',
-  },
   [theme.breakpoints.up('sm')]: {
     width: '550px',
     height: 'auto',
@@ -54,28 +41,9 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-const LoginContainer = styled(Stack)(({ theme }) => ({
-  height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-  minHeight: '100%',
-  padding: theme.spacing(2),
-  [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(4),
-  },
-  '&::before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    zIndex: -1,
-    inset: 0,
-    backgroundImage:
-      'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    backgroundRepeat: 'no-repeat',
-    ...theme.applyStyles('dark', {
-      backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-    }),
-  },
-}));
+const LoginContainer = styled(Stack)(
+   
+);
 
 const validateCPF = (cpf: string) => {
   const cpfRegex = /^\d{11}$/;

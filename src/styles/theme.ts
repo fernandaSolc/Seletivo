@@ -25,7 +25,7 @@ export const getTheme = (mode: PaletteMode) =>
       h5: { fontWeight: 400 },
       h6: { fontWeight: 400 },
       body1: { fontWeight: 300 },
-      body2: { fontWeight: 300 },
+      body2: { fontWeight: 200 },
     },
   });
 

@@ -12,6 +12,7 @@ import Questionnaire from '../components/Form/Questionnaire'
 import ProcessosSeletivosCard from '../components/ProcessosSeletivosCard/ProcessosSeletivosCard';
 import EnemUploadScreen from '../components/EnemUploadScreen/EnemUploadScreen';
 import MeritScreen from '../components/Merito/MeritScreen';
+import StatusPage from '../components/StatusCandidatura/StatusCandidatura';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -87,6 +88,13 @@ const AppRoutes: React.FC = () => {
         element={
           <MainLayout>
             <MeritScreen />
+          </MainLayout>
+        }/>
+        <Route
+        path="/status"
+        element={
+          <MainLayout>
+            <StatusPage />
           </MainLayout>
         }/>
 

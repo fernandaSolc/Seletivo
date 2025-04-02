@@ -3,7 +3,13 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-function LinearProgressWithLabel({ step, totalSteps }: { step: number; totalSteps: number }) {
+interface LinearProgressWithLabelProps {
+  step: number;
+  totalSteps: number;
+  progressSx?: object; // Permite passar estilos personalizados
+}
+
+function LinearProgressWithLabel({ step, totalSteps, progressSx }: LinearProgressWithLabelProps) {
   return (
     <Box sx={{ width: '100%' }}>
       {/* Label acima da barra, alinhada à esquerda */}
@@ -19,22 +25,22 @@ function LinearProgressWithLabel({ step, totalSteps }: { step: number; totalStep
           height: 5,
           borderRadius: '55px',
           bgcolor: '#E0E0E0',
-          '& .MuiLinearProgress-bar': { backgroundColor: '#8C44FF' },
           display: 'block',
+          ...progressSx, // Permite estilização dinâmica
         }}
       />
     </Box>
   );
 }
 
-export default function StepProgressBar() {
+export default function StepProgressBar({ progressSx }: { progressSx?: object }) {
   const [step] = React.useState(5);
   const totalSteps = 5;
 
   return (
     <Box sx={{ width: '50%', textAlign: 'left', mt: 3, mx: 0, paddingBottom:'15px' }}>
       {/* Barra de Progresso */}
-      <LinearProgressWithLabel step={step} totalSteps={totalSteps} />
+      <LinearProgressWithLabel step={step} totalSteps={totalSteps} progressSx={progressSx} />
     </Box>
   );
 }

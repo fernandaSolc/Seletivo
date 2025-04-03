@@ -177,7 +177,7 @@ export default function EnemUploadScreen() {
         variant="h5"
         sx={{
           fontWeight: '700',
-          fontFamily: 'Neue Machina, Arial',
+          fontFamily: 'Montserrat, Arial',
           fontSize: '32px',
           marginBottom: 3,
         }}

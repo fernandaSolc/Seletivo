@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from 'react-router';
 import SignUp from '../components/cadastroAluno/SignUp';
 import Login from '../components/LoginAluno/Login';
@@ -7,12 +6,13 @@ import VerifyEmail from '../components/VerifyEmail/VerifyEmail';
 import SucessMessage from '../components/SuccessMessage/SuccessMessage'
 import AuthLayout from '../layout/AuthLayout';
 import MainLayout from '../layout/MainLayout';
-import PrivateRoute from '../components/PrivateRoute';
+// import PrivateRoute from '../components/PrivateRoute';
 import Questionnaire from '../components/Form/Questionnaire'
 import ProcessosSeletivosCard from '../components/ProcessosSeletivosCard/ProcessosSeletivosCard';
 import EnemUploadScreen from '../components/EnemUploadScreen/EnemUploadScreen';
 import MeritScreen from '../components/Merito/MeritScreen';
 import StatusPage from '../components/StatusCandidatura/StatusCandidatura';
+import ExamScreen from '../components/Prova/ExamScreen';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -96,7 +96,15 @@ const AppRoutes: React.FC = () => {
           <MainLayout>
             <StatusPage />
           </MainLayout>
-        }/>
+        }/> 
+
+     <Route
+        path="/exam"
+        element={
+          <MainLayout>
+            <ExamScreen />
+          </MainLayout>
+        }/>  
 
        <Route
         path="*"

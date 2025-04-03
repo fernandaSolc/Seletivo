@@ -39,7 +39,7 @@ export default function MeritScreen() {
   <CardContainer sx={{padding:7, paddingTop:1}}>
     <LinearProgressWithLabel/>
       {/* Título */}
-      <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 1, fontFamily: 'Neue Machina, sans-serif' }}>
+      <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 1, fontFamily: 'Montserrat, sans-serif' }}>
         Mérito
       </Typography>
       

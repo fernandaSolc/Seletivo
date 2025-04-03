@@ -13,6 +13,7 @@ import EnemUploadScreen from '../components/EnemUploadScreen/EnemUploadScreen';
 import MeritScreen from '../components/Merito/MeritScreen';
 import StatusPage from '../components/StatusCandidatura/StatusCandidatura';
 import ExamScreen from '../components/Prova/ExamScreen';
+import ContractScreen from '../components/Contrato/ContractScreen'
 
 const AppRoutes: React.FC = () => {
   return (
@@ -104,6 +105,13 @@ const AppRoutes: React.FC = () => {
           <MainLayout>
             <ExamScreen />
           </MainLayout>
+        }/>  
+        <Route
+        path="/contract"
+        element={
+          <AuthLayout>
+            <ContractScreen />
+          </AuthLayout>
         }/>  
 
        <Route

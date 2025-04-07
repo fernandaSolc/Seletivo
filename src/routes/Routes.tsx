@@ -19,6 +19,8 @@ import FormPersonal from '../components/RegistrationForm/FormPersonal';
 import FormPersonal2 from '../components/RegistrationForm/FormPersonal2';
 import FormDocs from '../components/RegistrationForm/FormDocs';
 import ContractPendingPage from '../components/ContractPending/ContractPendingPage';
+import CredentialsPage from '../components/Credenciais/CredentialsPage';
+import CongratulationPage from '../components/Congratulation/CongratulationPage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -153,6 +155,22 @@ const AppRoutes: React.FC = () => {
         element={
         <MainLayout>
           <ContractPendingPage/>
+        </MainLayout>
+        }/>
+
+        <Route
+        path="/credentials"
+        element={
+        <MainLayout>
+          <CredentialsPage/>
+        </MainLayout>
+        }/>
+
+        <Route
+        path="/congratulation"
+        element={
+        <MainLayout>
+          <CongratulationPage/>
         </MainLayout>
         }/>
 

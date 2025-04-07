@@ -18,6 +18,7 @@ import FormAdress from '../components/RegistrationForm/FormAdress'
 import FormPersonal from '../components/RegistrationForm/FormPersonal';
 import FormPersonal2 from '../components/RegistrationForm/FormPersonal2';
 import FormDocs from '../components/RegistrationForm/FormDocs';
+import ContractPendingPage from '../components/ContractPending/ContractPendingPage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -145,6 +146,14 @@ const AppRoutes: React.FC = () => {
           <MainLayout>
             <FormDocs/>
           </MainLayout>
+        }/>
+
+        <Route
+        path="/contract-pending"
+        element={
+        <MainLayout>
+          <ContractPendingPage/>
+        </MainLayout>
         }/>
 
        <Route

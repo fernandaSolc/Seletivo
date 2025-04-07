@@ -5,7 +5,6 @@ import { useAsyncError, useNavigate } from 'react-router-dom';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers/';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from 'dayjs';
-import LinearProgressWithLabel from "../ProgressBar/ProgressBar"
 
 const CardContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(4),
@@ -37,7 +36,11 @@ export default function MeritScreen() {
 
   return (
   <CardContainer sx={{padding:7, paddingTop:1}}>
-    <LinearProgressWithLabel/>
+    <StepProgressBar 
+          step={5} 
+          totalSteps={5} 
+          progressSx={{ backgroundColor: '', '& .MuiLinearProgress-bar': { backgroundColor: '#8C44FF' } }} 
+        />
       {/* Título */}
       <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 1, fontFamily: 'Montserrat, sans-serif' }}>
         Mérito

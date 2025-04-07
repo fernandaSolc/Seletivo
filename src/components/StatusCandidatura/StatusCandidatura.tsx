@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Typography, Button, Link } from "@mui/material";
-import LinearProgressWithLabel from "../ProgressBar/ProgressBar";
+import StepProgressBar from "../ProgressBar/ProgressBar";
 
 const statusMessages = {
   "Em análise(prova)": {
@@ -89,11 +89,11 @@ const StatusPage = () => {
       }}
     >
       {/* Ajuste na barra de progresso para exibir o texto "5/5" */}
-      <LinearProgressWithLabel
-        value={100} // Assumindo que "5/5" significa 100% de progresso
-        label="5/5" // Prop para exibir o texto acima da barra
+      <StepProgressBar 
+        step={5} 
+        totalSteps={5} 
         progressSx={{ '& .MuiLinearProgress-bar': { backgroundColor: statusMessages[status].color } }}
-      />
+        />
       <Typography variant="h6" fontWeight="bold" color={'black'}>
         {statusMessages[status].title}
       </Typography>

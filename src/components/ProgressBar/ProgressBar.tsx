@@ -33,12 +33,15 @@ function LinearProgressWithLabel({ step, totalSteps, progressSx }: LinearProgres
   );
 }
 
-export default function StepProgressBar({ progressSx }: { progressSx?: object }) {
-  const [step] = React.useState(5);
-  const totalSteps = 5;
+interface StepProgressBarProps {
+  step: number;
+  totalSteps: number;
+  progressSx?: object;
+}
 
+export default function StepProgressBar({ step, totalSteps, progressSx }: StepProgressBarProps) {
   return (
-    <Box sx={{ width: '50%', textAlign: 'left', mt: 3, mx: 0, paddingBottom:'15px' }}>
+    <Box sx={{ width: '50%', textAlign: 'left', mt: 3, mx: 0, paddingBottom: '15px' }}>
       {/* Barra de Progresso */}
       <LinearProgressWithLabel step={step} totalSteps={totalSteps} progressSx={progressSx} />
     </Box>

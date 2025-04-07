@@ -8,9 +8,6 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import LinearProgressWithLabel from "../ProgressBar/ProgressBar"
 import { styled } from '@mui/material/styles';
 
 const CardContainer = styled('div')(({ theme }) => ({
@@ -33,7 +30,11 @@ export default function ExamScreen() {
 
   return (
     <CardContainer sx={{padding:7, paddingTop:1}}>
-      <LinearProgressWithLabel/>
+       <StepProgressBar 
+          step={5} 
+          totalSteps={5} 
+          progressSx={{ backgroundColor: '', '& .MuiLinearProgress-bar': { backgroundColor: '#8C44FF' } }} 
+        />
       <Typography variant="h5" fontWeight="bold" sx={{fontFamily:'Montserrat, sans serif'}}>
         Prova
       </Typography>

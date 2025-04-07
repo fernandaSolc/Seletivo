@@ -14,6 +14,10 @@ import MeritScreen from '../components/Merito/MeritScreen';
 import StatusPage from '../components/StatusCandidatura/StatusCandidatura';
 import ExamScreen from '../components/Prova/ExamScreen';
 import ContractScreen from '../components/Contrato/ContractScreen'
+import FormAdress from '../components/RegistrationForm/FormAdress'
+import FormPersonal from '../components/RegistrationForm/FormPersonal';
+import FormPersonal2 from '../components/RegistrationForm/FormPersonal2';
+import FormDocs from '../components/RegistrationForm/FormDocs';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -112,7 +116,36 @@ const AppRoutes: React.FC = () => {
           <AuthLayout>
             <ContractScreen />
           </AuthLayout>
+        }/>
+        <Route
+        path="/form-adress"
+        element={
+          <MainLayout>
+            <FormAdress />
+          </MainLayout>
         }/>  
+
+        <Route
+        path="/form-personal"
+        element={
+          <MainLayout>
+            <FormPersonal />
+          </MainLayout>
+        }/>
+        <Route
+        path="/form-personal2"
+        element={
+          <MainLayout>
+            <FormPersonal2 />
+          </MainLayout>
+        }/>
+        <Route
+        path="/form-docs"
+        element={
+          <MainLayout>
+            <FormDocs/>
+          </MainLayout>
+        }/>
 
        <Route
         path="*"

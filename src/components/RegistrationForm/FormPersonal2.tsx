@@ -2,9 +2,10 @@ import { Box, Button, Grid, TextField, Typography, FormControl, InputLabel, Sele
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import StepProgressBar from "../ProgressBar/ProgressBar";
+import { Radio, RadioGroup, FormControlLabel } from '@mui/material';
 
 const CardContainer = styled('div')(({ theme }) => ({
-    padding: "0px 50px 10px 50px",
+    padding: "0px 50px 20px 50px",
     margin: 'auto',
     maxWidth: '600px',
     height: '80vh',
@@ -72,6 +73,8 @@ export default function FormPersonal2() {
     const [familyCash, setFamilyCash] = useState('');
     const [education, setEducation] = useState('');
     const [pcd, setPcd] = useState('');
+    const [internettype, setInternetType] = useState('');
+    const [publicSchool, setPublicSchool] = useState('');
 
     return (
         <CardContainer sx={{ paddingTop: 1 }}>
@@ -163,13 +166,47 @@ export default function FormPersonal2() {
                     <Typography sx={{ mb: 1 }}><strong>Renda Familiar</strong></Typography>
                     <TextField
                         fullWidth
-                        label="Renda Familiar*"
+                        label="Renda Familiar"
                         variant="outlined"
                         value={familyCash}
                         onChange={(e) => setFamilyCash(e.target.value)}
                         required
                         sx={{ marginTop: '5px' }}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography sx={{ mb: 1 }}><strong>Tipo de Internet (se possuir)*</strong></Typography>
+                    <TextField
+                        fullWidth
+                        label="Caso não possua escreva “não possuo”"
+                        variant="outlined"
+                        value={internettype}
+                        onChange={(e) => setInternetType(e.target.value)}
+                        required
+                        sx={{ marginTop: '5px' }}
+                    />
+                </Grid>
+                
+                <Grid item xs={12}>
+                    <Typography sx={{ mb: 1 }}><strong>Estuda em Escola Pública?*</strong></Typography>
+                    <RadioGroup
+                    value={publicSchool}
+                    onChange={(e) => setPublicSchool(e.target.value)}
+                    >
+                        <FormControlLabel
+                            value="sim"
+                            control={<Radio />}
+                            label="Sim"
+                            sx={{ '& .MuiFormControlLabel-label': { fontSize: '12px' } }}
+                        />
+                        <FormControlLabel
+                            value="nao"
+                            control={<Radio />}
+                            label="Não"
+                            sx={{ '& .MuiFormControlLabel-label': { fontSize: '12px' } }}
+                        />
+                    </RadioGroup>
+
                 </Grid>
             </Grid>
             <Box sx={{

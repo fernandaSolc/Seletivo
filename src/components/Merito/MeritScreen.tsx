@@ -5,15 +5,42 @@ import { useAsyncError, useNavigate } from 'react-router-dom';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers/';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from 'dayjs';
+import StepProgressBar from '../ProgressBar/ProgressBar';
 
 const CardContainer = styled('div')(({ theme }) => ({
-  padding: theme.spacing(4),
+  padding: "0px 50px 10px 50px",
   margin: 'auto',
   maxWidth: '600px',
+  height: '80vh',
+  overflowY: 'auto',
   backgroundColor: theme.palette.background.paper,
-  borderRadius: '15px',
+  borderRadius: '16px 10px 10px 16px',
   boxShadow: '0px 4px 31px rgba(0, 0, 0, 0.2)',
-}));
+  color: theme.palette.text.primary,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
+  fontFamily:'Montserrat, sans-serif',
+
+  // Scrollbar (WebKit)
+  '&::-webkit-scrollbar': {
+    width: '8px',
+  },
+  '&::-webkit-scrollbar-track': {
+    backgroundcolor: theme.palette.text.primary,
+    boxShadow: '0px 4px 31px rgba(0, 0, 0, 0.2)',
+    borderRadius: '0px 10px 10px 10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#D9D9D9',
+    borderRadius: '16px 50px 50px 16px',
+  },
+  '&::-webkit-scrollbar-button': {
+    display: 'none', // Deve funcionar para remover as setas
+    height: 0,
+    width: 0,
+  },
+}));  
 
 export default function MeritScreen() {
   const navigate = useNavigate();

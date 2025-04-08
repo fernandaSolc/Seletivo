@@ -217,19 +217,7 @@ export default function SignUpTest() {
               size="small"
             />
           </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="socialName">Nome social</FormLabel>
-            <TextField
-              autoComplete="socialName"
-              name="socialName"
-              fullWidth
-              id="socialName"
-              placeholder="Insira seu nome social"
-              value={valoresFormulario.nomeSocial}
-              onChange={(e) => setValoresFormulario({ ...valoresFormulario, nomeSocial: e.target.value })}
-              size="small"
-            />
-          </FormControl>
+          
           <Box sx={{ display: 'flex', gap: 2 }}>
             <FormControl sx={{ flex: 1 }}>
               <FormLabel htmlFor="cpf">CPF*</FormLabel>
@@ -248,6 +236,20 @@ export default function SignUpTest() {
               />
             </FormControl>
             <FormControl sx={{ flex: 1 }}>
+              <FormLabel htmlFor="socialName">Nome social</FormLabel>
+              <TextField
+                autoComplete="socialName"
+                name="socialName"
+                fullWidth
+                id="socialName"
+                placeholder="Insira seu nome social"
+                value={valoresFormulario.nomeSocial}
+                onChange={(e) => setValoresFormulario({ ...valoresFormulario, nomeSocial: e.target.value })}
+                size="small"
+              />
+          </FormControl>
+          </Box>
+          <FormControl >
               <FormLabel htmlFor="email">Email*</FormLabel>
               <TextField
                 required
@@ -263,7 +265,6 @@ export default function SignUpTest() {
                 size="small"
               />
             </FormControl>
-          </Box>
           <Box sx={{ display: 'flex', gap: 2 }}>
             <FormControl sx={{ flex: 1 }}>
               <FormLabel htmlFor="telefone">Telefone*</FormLabel>

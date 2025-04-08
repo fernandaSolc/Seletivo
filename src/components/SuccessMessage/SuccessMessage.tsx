@@ -8,22 +8,41 @@ import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import eiCheck from '../../assets/ei_check.png'; // Adjust the path as necessary
 
-const Card = styled(MuiCard)(({ theme }) => ({
+
+const Card = styled('div')(({ theme }) => ({
+  padding: "0px 50px 10px 50px",
+  margin: 'auto',
+  maxWidth: '600px',
+  height: '50vh',
+  overflowY: 'auto',
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: '16px 10px 10px 16px',
+  boxShadow: '0px 4px 31px rgba(0, 0, 0, 0.2)',
+  color: theme.palette.text.primary,
   display: 'flex',
   flexDirection: 'column',
-  alignSelf: 'center',
-  alignItems: 'center',
-  width: '100%',
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  margin: 'auto',
-  boxShadow: '0px 4px 31.1px 5px rgba(0, 0, 0, 0.2)',
-  borderRadius: '15px',
-  backgroundColor: theme.palette.background.default,
-}));
+  gap:2,
+  fontFamily:'Montserrat, sans-serif',
+
+  // Scrollbar (WebKit)
+  '&::-webkit-scrollbar': {
+    width: '8px',
+  },
+  '&::-webkit-scrollbar-track': {
+    backgroundcolor: theme.palette.text.primary,
+    boxShadow: '0px 4px 31px rgba(0, 0, 0, 0.2)',
+    borderRadius: '0px 10px 10px 10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#D9D9D9',
+    borderRadius: '16px 50px 50px 16px',
+  },
+  '&::-webkit-scrollbar-button': {
+    display: 'none', 
+  },
+})); 
 
 const SuccessMessageContainer = styled(Stack)(({ theme }) => ({
-  minHeight: '100vh',
   padding: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(4),
@@ -38,16 +57,18 @@ export default function SuccessMessage() {
   };
 
   return (
-    <SuccessMessageContainer display="flex" direction="row" justifyContent="center">
-      <CssBaseline />
-      <Card>
-      <img src={eiCheck} alt="Check" style={{ width: '50px' }} />
-      <p>Muito bem! Agora que já conferimos tudo estamos preparados para começar sua inscrição!</p>
-      <p>Você está perto de fazer parte do nosso Projeto. Basta clicar em avançar para prosseguir pro próximo passo!</p>
-      <Button onClick={handleNextStep} fullWidth variant="contained" color="primary">
-        Avançar
-      </Button>
-      </Card>
-    </SuccessMessageContainer>
+     <Card sx={{'& strong': {color: '#8C44FF'}}}>
+      <SuccessMessageContainer display="flex" gap={2} justifyContent="center">
+        <CssBaseline />
+        <Box sx={{display:'flex', flexDirection:"row", justifyContent:'center'}}>
+          <img src={eiCheck} alt="Check" style={{ width: '50px' }} />
+        </Box>
+        <p>Muito bem! Agora que já conferimos tudo estamos preparados para começar sua inscrição!</p>        
+        <p>Você está perto de fazer parte do nosso Projeto. Basta clicar em <strong>avançar </strong> para prosseguir pro próximo passo!</p>
+        <Button onClick={handleNextStep} fullWidth variant="contained" color="primary">
+          Avançar
+        </Button>
+      </SuccessMessageContainer>
+    </Card>
   );
 }

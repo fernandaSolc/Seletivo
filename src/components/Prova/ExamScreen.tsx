@@ -9,6 +9,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
+import StepProgressBar from "../ProgressBar/ProgressBar";
 
 const CardContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(4),

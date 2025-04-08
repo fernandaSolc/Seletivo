@@ -1,10 +1,14 @@
-import { Box, Button, Typography, IconButton } from "@mui/material";
+import React, { useState } from 'react';
+import {
+  Box, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions,
+  IconButton, Alert
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useRef, useState } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import DeleteIcon from '@mui/icons-material/Delete';
-import axios from 'axios';
-import StepProgressBar from "../ProgressBar/ProgressBar";
+import CloseIcon from '@mui/icons-material/Close';
+import DescriptionIcon from '@mui/icons-material/Description';
+import StepProgressBar from '../ProgressBar/ProgressBar';
 
 const CardContainer = styled('div')(({ theme }) => ({
   padding: "0px 50px 10px 50px",
@@ -21,7 +25,6 @@ const CardContainer = styled('div')(({ theme }) => ({
   alignItems: 'start',
   fontFamily:'Montserrat, sans-serif',
 
-  // Scrollbar (WebKit)
   '&::-webkit-scrollbar': {
     width: '8px',
   },
@@ -35,137 +38,155 @@ const CardContainer = styled('div')(({ theme }) => ({
     borderRadius: '16px 50px 50px 16px',
   },
   '&::-webkit-scrollbar-button': {
-    display: 'none', // Deve funcionar para remover as setas
+    display: 'none',
     height: 0,
     width: 0,
   },
-}));  
+}));
 
-export default function FormDocs() {
-  const [historyFile, setHistoryFile] = useState<File | null>(null);
-  const [rgFiles, setRgFiles] = useState<FileList | null>(null);
-  const [addressFile, setAddressFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
+const CustomButton = styled(Button)(({ theme }) => ({
+  backgroundColor: 'lightgray',
+  color: 'gray',
+  borderRadius: '8px',
+  padding: theme.spacing(1),
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: '#d6d6d6'
+  }
+}));
 
-  const historyInputRef = useRef<HTMLInputElement>(null);
-  const rgInputRef = useRef<HTMLInputElement>(null);
-  const addressInputRef = useRef<HTMLInputElement>(null);
+const ClearButton = styled(Button)(({ theme }) => ({
+  backgroundColor: '#D3D3D3',
+  color: '#fff',
+  textTransform: 'none',
+  fontWeight: 'bold',
+  borderRadius: '8px',
+  padding: theme.spacing(1),
+  '&:hover': {
+    backgroundColor: '#B0B0B0',
+  },
+  '&.Mui-disabled': {
+    backgroundColor: '#E0E0E0',
+    color: '#fff',
+  },
+}));
 
-  const handleSubmit = async () => {
-    const formData = new FormData();
-    if (historyFile) formData.append("history", historyFile);
-    if (rgFiles) {
-      Array.from(rgFiles).forEach((file) => {
-        formData.append("rg", file);
-      });
+const ModalButton = styled(Button)(({ theme }) => ({
+  backgroundColor: '#8C44FF',
+  color: '#fff',
+  textTransform: 'none',
+  fontWeight: 'bold',
+  borderRadius: '8px',
+  padding: theme.spacing(1),
+  '&:hover': {
+    backgroundColor: '#6A36CC',
+  },
+  '&.Mui-disabled': {
+    backgroundColor: '#D3D3D3',
+    color: '#fff',
+  },
+}));
+
+// Labels de cada documento
+const fileLabels = {
+  historico: 'Histórico escolar*',
+  identidade: 'Documento de identidade (frente e verso)*',
+  comprovante: 'Comprovante de endereço*'
+};
+
+export default function PaginaUploadMatricula() {
+  const [files, setFiles] = useState<{ [key: string]: File | null }>({
+    historico: null,
+    identidade: null,
+    comprovante: null, 
+  });
+
+  const [currentField, setCurrentField] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalError, setModalError] = useState<string | null>(null);
+  const [resultMessage, setResultMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleModalOpen = (field: string) => {
+    setCurrentField(field);
+    setModalError(null);
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setModalError(null);
+  };
+
+  const handleModalSubmit = () => {
+    if (!currentField || !files[currentField]) {
+      setModalError('Por favor, selecione um arquivo.');
+      return;
     }
-    if (addressFile) formData.append("address", addressFile);
+    setModalOpen(false);
+  };
 
-    setUploading(true);
-    try {
-      const res = await axios.post("/selective/enem", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      alert("Enviado com sucesso!");
-    } catch (err) {
-      alert("Erro ao enviar arquivos");
-    } finally {
-      setUploading(false);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!currentField) return;
+    const selectedFile = event.target.files?.[0];
+    if (!selectedFile) return;
+
+    if (selectedFile.type !== 'application/pdf') {
+      setModalError('Apenas arquivos PDF são aceitos.');
+    } else if (selectedFile.size > 5 * 1024 * 1024) {
+      setModalError('Arquivo muito grande. Tamanho máximo de 5 MB.');
+    } else {
+      setFiles((prev) => ({ ...prev, [currentField]: selectedFile }));
+      setModalError(null);
     }
   };
 
-  const FileUploadBox = ({
-    label,
-    inputRef,
-    onClick,
-    fileName,
-    onDelete,
-    multiple,
-    accept,
-  }: {
-    label: string;
-    inputRef: React.RefObject<HTMLInputElement>;
-    onClick: () => void;
-    fileName?: string;
-    onDelete: () => void;
-    multiple?: boolean;
-    accept?: string;
-  }) => (
-    <Box sx={{ mt: 2, width: 1,}}>
-      <Typography variant="body1" fontWeight="bold">{label}</Typography>
-      <Typography
-          variant="body2"
-          sx={{ mt: 0.5, mb: 0.5, ml: 2, fontSize: '0.7rem' }}>
+  const handleRemoveFile = (field: string) => {
+    setFiles((prev) => ({ ...prev, [field]: null }));
+    setModalError(null);
+  };
 
-          {label.includes("Histórico") && (
-            <>
-              Favor enviar apenas{" "}
-              <span style={{ fontWeight: 'bold', color: '#8C44FF' }}>
-                1 (um)
-              </span>{" "}
-              documento no formato PDF.
-            </>
-          )}
-          {label.includes("Identidade") && (
-            <>
-              Favor enviar exatamente{" "}
-              <span style={{ fontWeight: 'bold', color: '#8C44FF' }}>
-                2 (dois)
-              </span>{" "}
-              imagens JPG (frente e verso).
-            </>
-          )}
-          {label.includes("endereço") && (
-            <>
-              Favor enviar apenas{" "}
-              <span style={{ fontWeight: 'bold', color: '#8C44FF' }}>
-                1 (um)
-              </span>{" "}
-              comprovante de endereço no formato PDF.
-            </>
-          )}
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const hasMissing = Object.values(files).some(f => !f);
+    if (hasMissing) {
+      setErrorMessage("Por favor, envie todos os documentos obrigatórios.");
+      return;
+    }
+    setResultMessage("Documentos enviados com sucesso!");
+    setErrorMessage(null);
+  };
 
-      </Typography>
+  const renderUploadBox = (field: string) => (
+    <Box key={field} sx={{ width: '100%' }}>
+      <Typography variant="body1"  sx={{ mt: 3,fontWeight: 'bold'}}>{fileLabels[field]}</Typography>
+      <Typography  sx={{ mb: 1,ml: 4, fontSize:'12px', '& strong': { color: '#8C44FF' }, }}>Favor enviar apenas <strong> 1 (um) </strong> documento no formato PDF.</Typography>
 
-
-
-      
-      <Box onClick={onClick} sx={{ cursor: 'pointer', border: '2px solid gray', borderRadius: '15px', padding: '15px', backgroundColor: '#e8e8e8', textAlign: 'center' }}>
-        <ArrowUpwardIcon sx={{ color: 'gray' }} />
-        <Typography variant="body2" color="gray">SELECIONAR ARQUIVO</Typography>
+      <Box onClick={() => handleModalOpen(field)} sx={{
+        cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        border: '1px dashed gray',
+        borderRadius: '15px',
+        padding: '25px',
+        backgroundColor: '#f8f8f8',
+      }}>
+        <CustomButton>
+          <ArrowUpwardIcon />
+        </CustomButton>
+        <Typography variant="body2" sx={{ color: 'gray', mt: 1 }}>
+          Arraste o arquivo ou clique para pegar do dispositivo
+        </Typography>
       </Box>
-      <input
-        type="file"
-        hidden
-        ref={inputRef}
-        multiple={multiple}
-        accept={accept}
-        onChange={(e) => {
-          const files = e.target.files;
-          if (label.includes("Histórico")) {
-            setHistoryFile(files?.[0] || null);
-          } else if (label.includes("Identidade")) {
-            if (files && files.length <= 2) {
-              const allJpg = Array.from(files).every(file => file.type === "image/jpeg");
-              if (!allJpg) {
-                alert("Envie apenas imagens JPG.");
-                e.target.value = ""; // limpa o input
-                return;
-              }
-              setRgFiles(files);
-            } else {
-              alert("Envie exatamente 2 imagens JPG (frente e verso).");
-              e.target.value = ""; // limpa o input
-            }
-          } else if (label.includes("endereço")) {
-            setAddressFile(files?.[0] || null);
-          }
-        }}
-      />
-      {fileName && (
-        <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-          <Typography variant="body2" sx={{ flex: 1 }}>{fileName}</Typography>
-          <IconButton onClick={onDelete}><DeleteIcon /></IconButton>
+
+      {files[field] && (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+          <DescriptionIcon sx={{ color: '#8C44FF' }} />
+          <Typography variant="body2">{files[field]?.name}</Typography>
+          <IconButton onClick={() => handleRemoveFile(field)} sx={{ color: '#8C44FF' }}>
+            <DeleteIcon />
+          </IconButton>
         </Box>
       )}
     </Box>
@@ -173,44 +194,74 @@ export default function FormDocs() {
 
   return (
     <CardContainer>
-      <StepProgressBar step={4} totalSteps={4} />
-      <Typography variant="h5" sx={{ fontWeight: '700', fontSize: '32px', mb: 3 }}>Documentos Necessários</Typography>
-
-      <FileUploadBox
-        label="Histórico escolar*"
-        inputRef={historyInputRef}
-        onClick={() => historyInputRef.current?.click()}
-        fileName={historyFile?.name}
-        onDelete={() => setHistoryFile(null)}
-      />
-      <FileUploadBox
-        label="Documento de Identidade (frente e verso)*"
-        inputRef={rgInputRef}
-        onClick={() => rgInputRef.current?.click()}
-        fileName={rgFiles ? Array.from(rgFiles).map(f => f.name).join(', ') : undefined}
-        onDelete={() => setRgFiles(null)}
-        multiple
-        accept="image/jpeg"
-      />
-      <FileUploadBox
-        label="Comprovante de endereço*"
-        inputRef={addressInputRef}
-        onClick={() => addressInputRef.current?.click()}
-        fileName={addressFile?.name}
-        onDelete={() => setAddressFile(null)}
+      <StepProgressBar
+        step={4}
+        totalSteps={4}
+        progressSx={{ '& .MuiLinearProgress-bar': { backgroundColor: '#8C44FF' } }}
       />
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 1, mt: 3 }}>
-        <Button variant="outlined" sx={{ borderRadius: 2, width: '30%' }}>Voltar</Button>
-        <Button
-          variant="contained"
-          sx={{ borderRadius: 2, width: '30%', backgroundColor: '#8C44FF' }}
-          onClick={handleSubmit}
-          disabled={uploading}
-        >
-          {uploading ? "Enviando..." : "Finalizar"}
+      <Typography sx={{ fontSize: '28px', fontWeight: 'bold', fontFamily: 'monospace' }}>
+        Matrícula
+      </Typography>
+
+      {Object.keys(fileLabels).map(renderUploadBox)}
+
+      <Box sx={{
+        pt: '10px',
+        width: 1,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'end',
+      }}>
+        <Button fullWidth variant="outlined" sx={{ borderRadius: '5px', width: 0.2, backgroundColor: '#fff', mt: '15px' }}>
+          Voltar
+        </Button>
+        <Button fullWidth variant="contained"onClick={handleSubmit} sx={{ borderRadius: '5px', width: 0.2, backgroundColor: '#8C44FF', mt: '15px' }}>
+          Próximo
         </Button>
       </Box>
+
+      {resultMessage && <Alert severity="success" sx={{ mt: 2 }}>{resultMessage}</Alert>}
+      {errorMessage && <Alert severity="error" sx={{ mt: 2 }}>{errorMessage}</Alert>}
+
+      <Dialog open={modalOpen} onClose={handleModalClose} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            {modalError ? '1 erro' : currentField && files[currentField] ? '1 arquivo anexado' : 'Upload de arquivo'}
+          </Typography>
+          <IconButton onClick={handleModalClose}><CloseIcon /></IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
+            <Button variant="outlined" component="label" sx={{ borderColor: '#8C44FF', color: '#8C44FF', borderRadius: '7px', width: '40%' }}>
+              Upload
+              <input type="file" hidden onChange={handleFileChange} />
+            </Button>
+            {(files[currentField ?? ''] || modalError) && (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, padding: 1, backgroundColor: 'lightgrey', borderRadius: '4px' }}>
+                <DescriptionIcon sx={{ color: '#8C44FF' }} />
+                <Box sx={{ flexGrow: 1 }}>
+                  <Typography variant="body2">{files[currentField ?? '']?.name || 'Arquivo inválido'}</Typography>
+                  {modalError && (
+                    <Typography variant="body2" sx={{ color: 'red', fontSize: '12px' }}>{modalError}</Typography>
+                  )}
+                </Box>
+                <IconButton onClick={() => handleRemoveFile(currentField!)} sx={{ color: '#8C44FF' }}>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            )}
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <ClearButton onClick={() => currentField && handleRemoveFile(currentField)} disabled={!files[currentField ?? ''] && !modalError}>
+            Limpar
+          </ClearButton>
+          <ModalButton onClick={handleModalSubmit} disabled={!files[currentField ?? ''] || !!modalError}>
+            Enviar
+          </ModalButton>
+        </DialogActions>
+      </Dialog>
     </CardContainer>
   );
 }

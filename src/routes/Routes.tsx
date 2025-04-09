@@ -23,6 +23,7 @@ import CredentialsPage from '../components/Credenciais/CredentialsPage';
 import CongratulationPage from '../components/Congratulation/CongratulationPage';
 import EmailVerificationPage from '../components/VerifyEmail/EmailVerificationPage';
 import NumberVerificationPage from '../components/VerifyNumber/NumberVerificationPage';
+import EnemGradeVerificationPage from '../components/EnemUploadScreen/EnemGradeVerification';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -189,6 +190,14 @@ const AppRoutes: React.FC = () => {
         element={
         <MainLayout>
           <NumberVerificationPage/>
+        </MainLayout>
+        }/>
+
+        <Route
+        path="/enem-grade"
+        element={
+        <MainLayout>
+          <EnemGradeVerificationPage/>
         </MainLayout>
         }/>
 

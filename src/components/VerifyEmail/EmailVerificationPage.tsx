@@ -48,7 +48,7 @@ export default function EmailVerificationPage() {
         }}
       >
         <img
-          src="src/assets/Logo.png" // ajuste o caminho da imagem
+          src="src/assets/Logo.png"
           alt="Logo Projeto Desenvolve"
           style={{ width: 100, marginBottom: 24 }}
         />

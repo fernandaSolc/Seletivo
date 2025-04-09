@@ -36,9 +36,7 @@ const CardContainer = styled('div')(({ theme }) => ({
     borderRadius: '16px 50px 50px 16px',
   },
   '&::-webkit-scrollbar-button': {
-    display: 'none', // Deve funcionar para remover as setas
-    height: 0,
-    width: 0,
+    display: 'none',
   },
 }));  
 

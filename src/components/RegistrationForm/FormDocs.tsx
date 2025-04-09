@@ -39,8 +39,7 @@ const CardContainer = styled('div')(({ theme }) => ({
   },
   '&::-webkit-scrollbar-button': {
     display: 'none',
-    height: 0,
-    width: 0,
+   
   },
 }));
 

@@ -21,6 +21,8 @@ import FormDocs from '../components/RegistrationForm/FormDocs';
 import ContractPendingPage from '../components/ContractPending/ContractPendingPage';
 import CredentialsPage from '../components/Credenciais/CredentialsPage';
 import CongratulationPage from '../components/Congratulation/CongratulationPage';
+import EmailVerificationPage from '../components/VerifyEmail/EmailVerificationPage';
+import NumberVerificationPage from '../components/VerifyNumber/NumberVerificationPage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -171,6 +173,22 @@ const AppRoutes: React.FC = () => {
         element={
         <MainLayout>
           <CongratulationPage/>
+        </MainLayout>
+        }/>
+
+        <Route
+        path="/email-verification"
+        element={
+        <MainLayout>
+          <EmailVerificationPage/>
+        </MainLayout>
+        }/>
+
+        <Route
+        path="/number-verification"
+        element={
+        <MainLayout>
+          <NumberVerificationPage/>
         </MainLayout>
         }/>
 

@@ -18,9 +18,13 @@ const CardContainer = styled('div')(({ theme }) => ({
 
 export default function ContractScreen() {
   const [isChecked, setIsChecked] = useState(false);
+  const [isChecked2, setIsChecked2] = useState(false);
 
   const handleCheckboxChange = (event: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
     setIsChecked(event.target.checked);
+  };
+  const handleCheckboxChange2 = (event: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+    setIsChecked2(event.target.checked);
   };
 
   return (
@@ -64,6 +68,28 @@ export default function ContractScreen() {
         <br /><br />
         • Na hora de realizar a matrícula se você marcou que estudou em escola pública, saiba que essa informação será checada no seu <strong>histórico escolar.</strong> Caso seja identificada alguma divergência, você será <strong>desqualificado imediatamente.</strong>
       </Typography>
+
+      <FormControlLabel
+        sx={{
+          fontSize: 12,
+          '& .MuiFormControlLabel-label': {
+            padding: 0,
+            lineHeight: 1.2,
+            fontSize: 11.5,
+            fontFamily: 'Montserrat, sans-serif',
+          },
+        }}
+        required
+        control={
+          <Checkbox
+            sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }}
+            checked={isChecked2}
+            onChange={handleCheckboxChange2}
+          />
+        }
+        label="Declaro estar ciente e autorizo o uso dos meus dados pessoais para fins de comunicação institucional e promoção de campanhas de marketing por parte da organização."
+      />
+      <br/>
       <FormControlLabel
         sx={{
           fontSize: 12,
@@ -84,27 +110,30 @@ export default function ContractScreen() {
         }
         label="Declaro que todas as informações fornecidas são verdadeiras e estou ciente de que, caso sejam identificadas inconsistências, minha matrícula será desqualificada."
       />
+      
+
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={!isChecked}
-          sx={{
-            backgroundColor: '#8C44FF',
-            color: '#fff',
-            textTransform: 'none',
-            width: '100%',
-            fontFamily: 'Montserrat, sans-serif',
-            fontWeight: 'bold',
-            mt: 1,
-            '&:disabled': {
-              backgroundColor: '#B0B0B0',
-              color: '#FFFFFF',
-            },
-          }}
-        >
-          CONTINUAR
-        </Button>
+      <Button
+        type="submit"
+        variant="contained"
+        disabled={!(isChecked && isChecked2)}
+        sx={{
+          backgroundColor: '#8C44FF',
+          color: '#fff',
+          textTransform: 'none',
+          width: '100%',
+          fontFamily: 'Montserrat, sans-serif',
+          fontWeight: 'bold',
+          mt: 1,
+          '&:disabled': {
+            backgroundColor: '#B0B0B0',
+            color: '#FFFFFF',
+          },
+        }}
+      >
+        CONTINUAR
+      </Button>
+
       </Box>
     </CardContainer>
   );

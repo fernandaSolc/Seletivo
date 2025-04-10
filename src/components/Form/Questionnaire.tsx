@@ -16,7 +16,7 @@ import StepProgressBar from '../ProgressBar/ProgressBar';
 const Card = styled('div')(({ theme }) => ({
   padding: "0px 50px 10px 50px",
   margin: 'auto',
-  maxWidth: '600px',
+  maxWidth: '60vw',
   height: '80vh',
   overflowY: 'auto',
   backgroundColor: theme.palette.background.paper,

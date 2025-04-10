@@ -24,6 +24,7 @@ import CongratulationPage from '../components/Congratulation/CongratulationPage'
 import EmailVerificationPage from '../components/VerifyEmail/EmailVerificationPage';
 import NumberVerificationPage from '../components/VerifyNumber/NumberVerificationPage';
 import EnemGradeVerificationPage from '../components/EnemUploadScreen/EnemGradeVerification';
+import MeritUpload from '../components/Merito/MeritDocumentPage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -198,6 +199,14 @@ const AppRoutes: React.FC = () => {
         element={
         <MainLayout>
           <EnemGradeVerificationPage/>
+        </MainLayout>
+        }/>
+
+        <Route
+        path="/merit-upload"
+        element={
+        <MainLayout>
+          <MeritUpload/>
         </MainLayout>
         }/>
 
